@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-router.use((req, res, next) => {
+router.use('/users/:userName/pets', (req, res, next) => {
   console.log('I am pet middleware');
   next();
 });

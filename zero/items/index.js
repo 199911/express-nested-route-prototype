@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-router.use((req, res, next) => {
+router.use('/users/:userName/items', (req, res, next) => {
   console.log('I am item middleware');
   next();
 });
