@@ -2,14 +2,17 @@ var express = require('express');
 var app = express();
 
 var users = require('./users/index.js');
-var items = require('./items/index.js');
+
+app.use((req, res, next) => {
+  console.log('I am global middleware');
+  next();
+});
 
 app
   .get('/', function (req, res) {
-    res.send('POC 1: I am index.')
+    res.send('POC one: I am index.')
   });
 
-app.use(users);
-app.use(items);
+app.use('/users', users);
 
 app.listen(3000);
