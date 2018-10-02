@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-router.use('/users/:userName/pets', (req, res, next) => {
-  console.log('I am pet middleware');
-  next();
-});
+var { userMiddleware, petMiddleware } = require('../middlewares.js');
 
 router
-  .get('/users/:userName/pets/:petName', function (req, res) {
+  .route('/users/:userName/pets/:petName')
+  .all(userMiddleware)
+  .all(petMiddleware)
+  .get(function (req, res) {
     const { userName, petName } = req.params;
     res.send(`POC zero: I am pet "${petName}" of user "${userName}"`);
   });

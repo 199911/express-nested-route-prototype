@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-router.use('/users/:userName/items', (req, res, next) => {
-  console.log('I am item middleware');
-  next();
-});
+var { userMiddleware, itemMiddleware } = require('../middlewares.js');
 
 router
-  .get('/users/:userName/items/:itemName', function (req, res) {
+  .route('/users/:userName/items/:itemName')
+  .all(userMiddleware)
+  .all(itemMiddleware)
+  .get(function (req, res) {
     const { userName, itemName } = req.params;
     res.send(`POC zero: I am item "${itemName}" of user "${userName}"`);
   });
